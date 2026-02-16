@@ -1,0 +1,23 @@
+{
+  "name": "verkkokauppa_tests",
+  "version": "1.0.0",
+  "description": "Test automation cases for verkkokauppa.com, made with Playwright framework",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jungleistx/verkkokauppa_tests.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jungleistx/verkkokauppa_tests/issues"
+  },
+  "homepage": "https://github.com/jungleistx/verkkokauppa_tests#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.2.3"
+  }
+}
