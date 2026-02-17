@@ -8,31 +8,35 @@ export class ResultPage {
 		this.page = page;
 	}
 
+	private get sortDropdown() {
+		return this.page.getByLabel('Tuotteiden järjestys');
+	}
+
 	async selectResultByIndex(n: number) {
 		await this.page.locator('#main ol > li').nth(n).click();
 	}
 
 	async sortResultsPriceAsc() {
-		  await this.page.getByLabel('Tuotteiden järjestys').selectOption('price:asc');
+		await this.sortDropdown.selectOption('price:asc');
 	}
 
 	async sortResultsPriceDesc() {
-		await this.page.getByLabel('Tuotteiden järjestys').selectOption('price:desc');
+		await this.sortDropdown.selectOption('price:desc');
 	}
 
 	async sortResultsByDate() {
-		await this.page.getByLabel('Tuotteiden järjestys').selectOption('releaseDate:desc');
+		await this.sortDropdown.selectOption('releaseDate:desc');
 	}
 
 	async sortResultsMostSold() {
-		await this.page.getByLabel('Tuotteiden järjestys').selectOption('popularity:desc');
+		await this.sortDropdown.selectOption('popularity:desc');
 	}
 
 	async sortResultsByRating() {
-		await this.page.getByLabel('Tuotteiden järjestys').selectOption('rating:desc');
+		await this.sortDropdown.selectOption('rating:desc');
 	}
 
 	async sortResultsByScore() {
-		  await this.page.getByLabel('Tuotteiden järjestys').selectOption('score:desc');
+		await this.sortDropdown.selectOption('score:desc');
 	}
 };
