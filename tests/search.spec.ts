@@ -22,3 +22,15 @@ test('search for nikon, sort by price and select 2nd', async ({ page }) => {
   // // task 1 version, add soft assertion
   // await expect(page).toHaveTitle(/Nikon Z30/);
 });
+
+
+test('search for tv, sort most sold, select 1st', async ({ page }) => {
+  const search = new SearchComponent(page);
+  const results = new ResultPage(page);
+
+  await search.searchForItem('tv');
+  await results.sortResultsMostSold();
+  await results.selectResultByIndex(0);
+
+  await expect(page).toHaveTitle(/kolmen vuoden takuu/i);
+});
