@@ -36,4 +36,10 @@ export class CartPage {
 		await expect(this.itemInCartText).toBeVisible();
 		await expect(this.page).toHaveURL(/cart\/.+$/);
 	}
+
+	async addItemToCartFromProductPage() {
+		await this.page.waitForURL(/product/);
+		await expect(this.addToCartButton).toBeVisible();
+		await this.addToCartButton.click();
+	}
 };
