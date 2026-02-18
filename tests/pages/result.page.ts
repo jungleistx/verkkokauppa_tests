@@ -17,8 +17,6 @@ export class ResultPage {
 			.locator('#main ol > li')
 			.getByRole('link');
 
-		await expect(resultLinks).not.toBeNull();
-
 		await resultLinks.nth(n).click();
 
 		await this.page.waitForURL(/product/);
