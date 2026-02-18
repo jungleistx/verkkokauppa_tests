@@ -9,3 +9,5 @@ node_modules/
 auth.json
 *auth.json
 **auth.json
+*/.DS_Store
+.DS_Store
