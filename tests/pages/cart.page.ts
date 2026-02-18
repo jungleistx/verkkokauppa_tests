@@ -17,7 +17,11 @@ export class CartPage {
 	}
 
 	private get itemInCartText() {
-		return this.page.getByText('(tuote|tuotetta), yhteensä');
+		return this.page.getByText(/(tuote|tuotetta), yhteensä/).first();
+	}
+
+	private get addToCartButton() {
+		return this.page.locator('button').filter({ hasText: 'Lisää ostoskoriin' });
 	}
 
 	async goto() {
