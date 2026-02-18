@@ -16,6 +16,10 @@ export class CartPage {
 		return this.page.getByText('Ostoskori on tyhjä');
 	}
 
+	private get itemInCartText() {
+		return this.page.getByText('(tuote|tuotetta), yhteensä');
+	}
+
 	async goto() {
 		await this.cartButton.click();
 		await this.page.waitForURL(/cart/);
