@@ -13,8 +13,15 @@ export class ResultPage {
 	}
 
 	async selectResultByIndex(n: number) {
-		await this.page.locator('#main ol > li').nth(n).click();
-		await expect(this.page).toHaveURL(/product/);
+		const resultLinks = this.page
+			.locator('#main ol > li')
+			.getByRole('link');
+
+		await expect(resultLinks).not.toBeNull();
+
+		await resultLinks.nth(n).click();
+
+		await this.page.waitForURL(/product/);
 	}
 
 	async sortResultsPriceAsc() {
