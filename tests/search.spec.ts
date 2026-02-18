@@ -34,3 +34,16 @@ test('search for tv, sort most sold, select 1st', async ({ page }) => {
 
   await expect(page).toHaveTitle(/kolmen vuoden takuu/i);
 });
+
+
+test('search for speaker, sort by price and score, select 3rd', async ({ page }) => {
+  const search = new SearchComponent(page);
+  const results = new ResultPage(page);
+
+  await search.searchForItem('speaker');
+  await results.sortResultsPriceAsc();
+  await results.sortResultsByScore();
+  await results.selectResultByIndex(2);
+
+  await expect(page).toHaveTitle(/logitech z150/i);
+});
