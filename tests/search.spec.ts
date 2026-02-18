@@ -18,9 +18,9 @@ test('search for nikon, sort by price and select 2nd', async ({ page }) => {
   await results.sortResultsPriceDesc();
   await results.selectResultByIndex(1);
 
-  await expect(page).toHaveTitle(/nikon/i);
-  // // task 1 version, add soft assertion
-  // await expect(page).toHaveTitle(/Nikon Z30/);
+  await expect(page).toHaveURL(/product/);
+  // soft assertion because expected to fail
+  await expect.soft(page).toHaveTitle(/Nikon Z30/);
 });
 
 
