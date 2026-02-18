@@ -19,7 +19,7 @@ test('search for nikon, sort by price and select 2nd', async ({ page }) => {
   await results.selectResultByIndex(1);
 
   await expect(page).toHaveURL(/product/);
-  // soft assertion because expected to fail
+  // soft assertion, expected to fail
   await expect.soft(page).toHaveTitle(/Nikon Z30/);
 });
 
@@ -32,6 +32,7 @@ test('search for tv, sort most sold, select 1st', async ({ page }) => {
   await results.sortResultsMostSold();
   await results.selectResultByIndex(0);
 
+  await expect(page).toHaveURL(/product/);
   await expect(page).toHaveTitle(/kolmen vuoden takuu/i);
 });
 
@@ -45,5 +46,6 @@ test('search for speaker, sort by price and score, select 3rd', async ({ page })
   await results.sortResultsByScore();
   await results.selectResultByIndex(2);
 
+  await expect(page).toHaveURL(/product/);
   await expect(page).toHaveTitle(/logitech z150/i);
 });
