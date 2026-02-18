@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
 
 
 export class SearchComponent {
@@ -14,5 +14,8 @@ export class SearchComponent {
 		await searchBox.click();
 		await searchBox.fill(searchTerm);
 		await searchBox.press('Enter');
+
+		await expect(this.page).toHaveURL(/search/);
+		await expect(this.page).toHaveTitle(/haun tulokset/i);
 	};
 };
