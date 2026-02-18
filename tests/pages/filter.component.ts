@@ -29,6 +29,9 @@ export class FilterComponent {
 	private get applyFiltersButton() {
 		return this.page.getByRole('button', { name: 'Suodata' });
 	}
+	private get openAvailabilityMenuButton() {
+		return this.page.getByLabel('Suodattimet').getByRole('button', { name: 'Saatavuus' });
+	}
 
 
 	// actions
@@ -65,7 +68,17 @@ export class FilterComponent {
 		// include the max price in url
 		await this.page.waitForURL(new RegExp(max), { timeout: 5000 });
 		await this.waitForResultsToLoad();
+	}
 
-		await this.applyFilters();
+	async setInstantAvailabilityFilter() {
+		const availableCheckbox = this.page.getByLabel('Saatavuus').getByText('Heti lähetettävissä');
+
+		await this.openAvailabilityMenuButton.click();
+
+		await availableCheckbox.waitFor({ state: 'visible' });
+		await availableCheckbox.click();
+
+		await this.page.waitForURL(/AvailableImmediately/i);
+		await this.waitForResultsToLoad();
 	}
 }
