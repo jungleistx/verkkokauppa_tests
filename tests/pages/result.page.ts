@@ -12,6 +12,11 @@ export class ResultPage {
 		return this.page.getByLabel('Tuotteiden järjestys');
 	}
 
+	private async waitForResultsToLoad() {
+		await this.page.getByText('Ladataan hakutuloksia').waitFor({ state: 'hidden' });
+		await this.page.getByRole('heading', { name: /(tulos|tulosta) haulla/i }).waitFor({ state: 'visible' });
+	}
+
 	async selectResultByIndex(n: number) {
 		const resultLinks = this.page
 			.locator('#main ol > li')
@@ -24,37 +29,37 @@ export class ResultPage {
 
 	async sortResultsPriceAsc() {
 		await this.sortDropdown.selectOption('price:asc');
-		await this.page.waitForLoadState();
+		await this.waitForResultsToLoad();
 		await expect(this.page).toHaveURL(/price.*asc/);
 	}
 
 	async sortResultsPriceDesc() {
 		await this.sortDropdown.selectOption('price:desc');
-		await this.page.waitForLoadState();
+		await this.waitForResultsToLoad();
 		await expect(this.page).toHaveURL(/price.*desc/);
 	}
 
 	async sortResultsByDate() {
 		await this.sortDropdown.selectOption('releaseDate:desc');
-		await this.page.waitForLoadState();
+		await this.waitForResultsToLoad();
 		await expect(this.page).toHaveURL(/releaseDate.*desc/);
 	}
 
 	async sortResultsMostSold() {
 		await this.sortDropdown.selectOption('popularity:desc');
-		await this.page.waitForLoadState();
+		await this.waitForResultsToLoad();
 		await expect(this.page).toHaveURL(/popularity.*desc/);
 	}
 
 	async sortResultsByRating() {
 		await this.sortDropdown.selectOption('rating:desc');
-		await this.page.waitForLoadState();
+		await this.waitForResultsToLoad();
 		await expect(this.page).toHaveURL(/rating.*desc/);
 	}
 
 	async sortResultsByScore() {
 		await this.sortDropdown.selectOption('score:desc');
-		await this.page.waitForLoadState();
+		await this.waitForResultsToLoad();
 		await expect(this.page).toHaveURL(/score.*desc/);
 	}
 };
