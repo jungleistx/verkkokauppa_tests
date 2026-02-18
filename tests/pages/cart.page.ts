@@ -28,5 +28,12 @@ export class CartPage {
 	async assertCartIsEmpty() {
 		await expect(this.emptyCartText).toBeVisible();
 		await expect(this.page).toHaveURL(/cart$/);
+		await expect(this.itemInCartText).not.toBeVisible();
+	}
+
+	async assertCartNotEmpty() {
+		await expect(this.emptyCartText).not.toBeVisible();
+		await expect(this.itemInCartText).toBeVisible();
+		await expect(this.page).toHaveURL(/cart\/.+$/);
 	}
 };
