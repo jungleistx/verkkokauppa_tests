@@ -25,7 +25,19 @@ export class LoginComponent {
 	}
 
 	private get greetingText() {
-		return this.page.getByText(new RegExp(`hey, ${process.env.USER_FIRSTNAME}`));
+		return this.page.getByText(new RegExp(`Hei, ${process.env.USER_FIRSTNAME}`));
+	}
+
+	private get accountButton() {
+		return this.page.getByRole('button', { name: 'Siirry tilinhallintaan' });
+	}
+
+	private get logoutButton() {
+		return this.page.getByRole('button', { name: 'Kirjaudu ulos' });
+	}
+
+	private get closeLoginMenuButton() {
+		return this.page.getByRole('button', { name: 'Sulje valikko' });
 	}
 
 	async openLoginMenu() {
@@ -43,8 +55,29 @@ export class LoginComponent {
 
 		await this.loginButton.click();
 
-		await this.greetingText.waitFor({ state: 'visible' });
+		await this.greetingText.waitFor({ state: 'visible' , timeout: 5000 });
 		await this.page.reload();
+		await this.greetingText.waitFor({ state: 'visible', timeout: 5000 });
+	}
+
+	async logoutUser() {
 		await this.greetingText.waitFor({ state: 'visible' });
+
+		await this.accountButton.waitFor({ state: 'visible' });
+		await this.accountButton.click();
+
+		await this.logoutButton.waitFor({ state: 'visible' });
+		await this.logoutButton.click();
+
+		await this.closeLoginMenuButton.waitFor({ state: 'visible' });
+		await this.closeLoginMenuButton.click();
+
+		await this.greetingText.waitFor({ state: 'hidden' });
+
+		await this.page.reload();
+
+		await this.greetingText.waitFor({ state: 'hidden' });
+
+		await this.loginMenuButton.waitFor({ state: 'visible' });
 	}
 }
