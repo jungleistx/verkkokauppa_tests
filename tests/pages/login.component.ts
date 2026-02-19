@@ -8,11 +8,11 @@ export class LoginComponent {
 		this.page = page;
 	}
 
-	private get loginButton() {
+	private get loginMenuButton() {
 		return this.page.getByRole('button', { name: 'Kirjaudu sisään' });
 	}
 
-	private get signinButton() {
+	private get loginButton() {
 		return this.page.locator('#login-form').getByRole('button', { name: 'Kirjaudu sisään' });
 	}
 
@@ -29,7 +29,7 @@ export class LoginComponent {
 	}
 
 	async openLoginMenu() {
-		await this.loginButton.click();
+		await this.loginMenuButton.click();
 	}
 
 	async enterEnvUserCredentials() {
@@ -41,7 +41,7 @@ export class LoginComponent {
 		await this.emailTextfield.fill(process.env.USER_EMAIL);
 		await this.passwordTextfield.fill(process.env.USER_PASSWORD);
 
-		await this.signinButton.click();
+		await this.loginButton.click();
 
 		await this.greetingText.waitFor({ state: 'visible' });
 		await this.page.reload();
