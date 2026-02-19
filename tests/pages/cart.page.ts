@@ -21,7 +21,7 @@ export class CartPage {
 	}
 
 	private get addToCartButton() {
-		return this.page.locator('button').filter({ hasText: 'Lisää ostoskoriin' });
+		return this.page.getByRole('button', { name: 'Lisää ostoskoriin' }).first();
 	}
 
 	async goto() {
@@ -45,5 +45,20 @@ export class CartPage {
 		await this.page.waitForURL(/product/);
 		await expect(this.addToCartButton).toBeVisible();
 		await this.addToCartButton.click();
+	}
+
+	async removeAllItemsFromCart() {
+		const popupButton = this.page.getByRole('button', { name: 'Sulje' });
+		const removeFirstItemButton = this.page.getByRole('button', { name: 'Poista tuote' }).first();
+
+		await this.goto();
+		await this.assertCartNotEmpty();
+
+		while (await removeFirstItemButton.isVisible()) {
+			await removeFirstItemButton.click();
+			await popupButton.waitFor({ state: 'visible' });
+			await popupButton.click();
+			await popupButton.waitFor({ state: 'hidden' });
+		}
 	}
 };
