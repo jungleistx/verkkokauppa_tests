@@ -44,6 +44,11 @@ export class LoginComponent {
 		await this.loginMenuButton.click();
 	}
 
+	async closeLoginMenu() {
+		await this.closeLoginMenuButton.waitFor({ state: 'visible' });
+		await this.closeLoginMenuButton.click();
+	}
+
 	async loginWithEnvCredentials() {
 		await this.openLoginMenu();
 
@@ -85,8 +90,7 @@ export class LoginComponent {
 		await this.logoutButton.waitFor({ state: 'visible' });
 		await this.logoutButton.click();
 
-		await this.closeLoginMenuButton.waitFor({ state: 'visible' });
-		await this.closeLoginMenuButton.click();
+		await this.closeLoginMenu();
 
 		await this.greetingText.waitFor({ state: 'hidden' });
 
