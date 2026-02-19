@@ -13,7 +13,7 @@ test('login with env, logoout', async ({ page }) => {
 	const login = new LoginComponent(page);
 	const greetingText = page.getByText(new RegExp(`Hei, ${process.env.USER_FIRSTNAME}`));
 
-	await login.enterEnvUserCredentials();
+	await login.loginWithEnvCredentials();
 
 	await expect(greetingText).toBeVisible();
 

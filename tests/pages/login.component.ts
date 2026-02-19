@@ -44,7 +44,7 @@ export class LoginComponent {
 		await this.loginMenuButton.click();
 	}
 
-	async enterEnvUserCredentials() {
+	async loginWithEnvCredentials() {
 		await this.openLoginMenu();
 
 		await this.emailTextfield.waitFor({ state: 'visible' });
