@@ -21,3 +21,22 @@ test('login with env, logoout', async ({ page }) => {
 
 	await expect(greetingText).not.toBeVisible();
 });
+
+
+test('login with invalid credentials', async ({ page }) => {
+  const login = new LoginComponent(page);
+  const username = 'user@gmail.com';
+  const password = 'invalIDpassword_4#';
+  const greetingText = page.getByText(new RegExp(`Hei, ${process.env.USER_FIRSTNAME}`));
+  const loginMenuButton = page.getByRole('button', { name: 'Kirjaudu sisään' });
+
+  await login.loginWithInvalidCredentials(username, password);
+  await expect(greetingText).not.toBeVisible();
+
+  await login.closeLoginMenu();
+
+  await page.reload();
+
+  await expect(loginMenuButton).toBeVisible();
+  await expect(greetingText).not.toBeVisible();
+});

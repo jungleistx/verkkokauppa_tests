@@ -81,6 +81,18 @@ export class LoginComponent {
 		await this.greetingText.waitFor({ state: 'visible', timeout: 5000 });
 	}
 
+	async loginWithInvalidCredentials(username: string, password: string) {
+		await this.openLoginMenu();
+
+		await this.emailTextfield.waitFor({ state: 'visible' });
+		await this.passwordTextfield.waitFor({ state: 'visible' });
+
+		await this.emailTextfield.fill(username);
+		await this.passwordTextfield.fill(password);
+
+		await this.loginButton.click();
+	}
+
 	async logoutUser() {
 		await this.greetingText.waitFor({ state: 'visible' });
 
