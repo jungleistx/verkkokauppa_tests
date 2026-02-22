@@ -24,19 +24,33 @@ test('login with env, logoout', async ({ page }) => {
 
 
 test('login with invalid credentials', async ({ page }) => {
-  const login = new LoginComponent(page);
-  const username = 'user@gmail.com';
-  const password = 'invalIDpassword_4#';
-  const greetingText = page.getByText(new RegExp(`Hei, ${process.env.USER_FIRSTNAME}`));
-  const loginMenuButton = page.getByRole('button', { name: 'Kirjaudu sisään' });
+	const login = new LoginComponent(page);
+	const username = 'user@gmail.com';
+	const password = 'invalIDpassword_4#';
+	const greetingText = page.getByText(new RegExp(`Hei, ${process.env.USER_FIRSTNAME}`));
+	const loginMenuButton = page.getByRole('button', { name: 'Kirjaudu sisään' });
 
-  await login.loginWithInvalidCredentials(username, password);
-  await expect(greetingText).not.toBeVisible();
+	await login.loginWithInvalidCredentials(username, password);
+	await expect(greetingText).not.toBeVisible();
 
-  await login.closeLoginMenu();
+	await login.closeLoginMenu();
 
-  await page.reload();
+	await page.reload();
 
-  await expect(loginMenuButton).toBeVisible();
-  await expect(greetingText).not.toBeVisible();
+	await expect(loginMenuButton).toBeVisible();
+	await expect(greetingText).not.toBeVisible();
+});
+
+
+test('login link should not lead to notfound page', async ({ page }) => {
+	const login = new LoginComponent(page);
+	const loginLink = page.getByRole('link', { name: 'Kirjaudu sisään' });
+
+	await login.openLoginMenu();
+
+	await loginLink.waitFor({ state: 'visible', timeout: 5000 });
+	await loginLink.click();
+
+  await expect(page.locator('h1')).not.toContainText('Sivua ei löytynyt');
+  await expect(page.getByText('Sivua ei löytynyt', { exact: true })).not.toBeVisible();
 });
