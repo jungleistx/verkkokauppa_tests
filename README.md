@@ -107,6 +107,11 @@ Login, logout, login with invalid credentials. Ensures the login flow works corr
 
 These tests run against the live production site. As a result, tests stability can be affected by site availability, Cloudflare rate limiting, and real-time inventory or content changes. A staging environment would be recommended for a more stable test results.
 
+---
+
+- Found defects
+
+   - While logging in, in the loginmenu the top 'Kirjaudu sisään' link leads to notfound page.
 
 ***
 
