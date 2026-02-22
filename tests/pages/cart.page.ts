@@ -25,6 +25,7 @@ export class CartPage {
 	}
 
 	async goto() {
+		await this.cartButton.waitFor({ state: 'visible', timeout: 5000 });
 		await this.cartButton.click();
 		await this.page.waitForURL(/cart/);
 	}

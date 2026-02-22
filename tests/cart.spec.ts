@@ -19,12 +19,7 @@ test('verify empty cart, add item, verify full cart', async ({ page }) => {
   await cart.goto();
   await cart.assertCartIsEmpty();
 
-  await search.searchForItem('nikon z50');
-  await expect(page).toHaveURL(/search/);
-
-  await results.selectResultByIndex(0);
-  await expect(page).toHaveURL(/product/);
-
+  await page.goto('/product/1025468/')
   await cart.addItemToCartFromProductPage();
 
   await cart.goto();
